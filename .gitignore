@@ -1,0 +1,22 @@
+# Build directories
+build/
+bin/
+obj/
+out/
+.vs/
+*.user
+*.suo
+
+# Database
+database/*.db
+database/*.db-shm
+database/*.db-wal
+*.db
+
+# Drogon / runtime
+uploads/
+*.log
+
+# System files
+.DS_Store
+Thumbs.db

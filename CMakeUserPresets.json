@@ -1,0 +1,51 @@
+{
+  "version": 3,
+  "configurePresets": [
+    {
+      "name": "windows-vcpkg-debug",
+      "displayName": "Windows Debug (vcpkg)",
+      "generator": "Visual Studio 17 2022",
+      "binaryDir": "${sourceDir}/build/debug",
+      "cacheVariables": {
+        "CMAKE_BUILD_TYPE": "Debug",
+        "CMAKE_TOOLCHAIN_FILE": "C:/Users/lenovo/Documents/Default Project/vcpkg/scripts/buildsystems/vcpkg.cmake"
+      }
+    },
+    {
+      "name": "windows-vcpkg-release",
+      "displayName": "Windows Release (vcpkg)",
+      "generator": "Visual Studio 17 2022",
+      "binaryDir": "${sourceDir}/build/release",
+      "cacheVariables": {
+        "CMAKE_BUILD_TYPE": "Release",
+        "CMAKE_TOOLCHAIN_FILE": "C:/Users/lenovo/Documents/Default Project/vcpkg/scripts/buildsystems/vcpkg.cmake"
+      }
+    }
+  ],
+  "buildPresets": [
+    {
+      "name": "debug",
+      "configurePreset": "windows-vcpkg-debug",
+      "configuration": "Debug"
+    },
+    {
+      "name": "release",
+      "configurePreset": "windows-vcpkg-release",
+      "configuration": "Release"
+    }
+  ],
+  "testPresets": [
+    {
+      "name": "test-debug",
+      "configurePreset": "windows-vcpkg-debug",
+      "configuration": "Debug",
+      "output": { "outputOnFailure": true }
+    },
+    {
+      "name": "test-release",
+      "configurePreset": "windows-vcpkg-release",
+      "configuration": "Release",
+      "output": { "outputOnFailure": true }
+    }
+  ]
+}

@@ -1,0 +1,61 @@
+name: CI
+
+on:
+  push:
+    branches: [ main, develop ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  build-windows:
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          submodules: recursive
+
+      - name: Setup vcpkg
+        uses: lukka/run-vcpkg@v11
+        with:
+          vcpkgGitCommitId: 'a42af01b72c28a8e1d7b48107b33e4f286a55ef6'
+
+      - name: Configure CMake
+        run: |
+          cmake -B build -DCMAKE_BUILD_TYPE=Release \
+            -DCMAKE_TOOLCHAIN_FILE=${{ env.VCPKG_ROOT }}/scripts/buildsystems/vcpkg.cmake
+
+      - name: Build
+        run: cmake --build build --config Release
+
+      - name: Run Tests
+        run: cd build && ctest -C Release --output-on-failure
+
+  build-ubuntu:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install dependencies
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y libsqlite3-dev libssl-dev uuid-dev libjsoncpp-dev libhiredis-dev zlib1g-dev
+          # Install Drogon from source for Ubuntu
+          git clone https://github.com/drogonframework/drogon
+          cd drogon && git submodule update --init
+          mkdir build && cd build && cmake .. -DBUILD_EXAMPLES=OFF
+          make -j4 && sudo make install
+
+      - name: Install Catch2
+        run: |
+          git clone https://github.com/catchorg/Catch2.git
+          cd Catch2 && cmake -B build -DBUILD_TESTING=OFF
+          cmake --build build && sudo cmake --install build
+
+      - name: Configure CMake
+        run: cmake -B build -DCMAKE_BUILD_TYPE=Release
+
+      - name: Build
+        run: cmake --build build -j4
+
+      - name: Run Tests
+        run: cd build && ctest --output-on-failure

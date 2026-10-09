@@ -1,0 +1,10 @@
+{
+  "name": "blessimart",
+  "version": "1.0.0",
+  "dependencies": [
+    "drogon",
+    "sqlite3",
+    "c-ares",
+    "catch2"
+  ]
+}

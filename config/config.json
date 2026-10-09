@@ -1,0 +1,22 @@
+{
+  "listeners": [
+    {
+      "address": "0.0.0.0",
+      "port": 8080,
+      "https": false
+    }
+  ],
+  "threads_num": 4,
+  "app": {
+    "document_root": "./frontend",
+    "home_page": "index.html",
+    "upload_path": "./uploads",
+    "file_types": [
+      "html", "js", "css", "xml", "xsl", "txt", "svg", "png", "jpg", "jpeg", "gif", "ico"
+    ],
+    "max_connections": 100000,
+    "max_connections_per_ip": 0,
+    "session_timeout": 86400,
+    "enable_session": true
+  }
+}
