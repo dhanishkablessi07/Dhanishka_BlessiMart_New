@@ -1,4 +1,4 @@
-# BlessiMart
+# Dhanishka_Blessi_Mart
 
 A full-stack e-commerce marketplace built with **C++20**, **Drogon**, **SQLite3**, and **Vanilla JS**.
 
