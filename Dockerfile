@@ -10,8 +10,7 @@ WORKDIR /app
 
 COPY . .
 
-RUN git clone --depth 1 https://github.com/microsoft/vcpkg.git /opt/vcpkg \
-    && /opt/vcpkg/bootstrap-vcpkg.sh -disableMetrics
+RUN git clone https://github.com/microsoft/vcpkg.git /opt/vcpkg && /opt/vcpkg/bootstrap-vcpkg.sh -disableMetrics
 
 ENV VCPKG_ROOT=/opt/vcpkg
 ENV PATH="${VCPKG_ROOT}:${PATH}"
