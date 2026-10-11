@@ -1,11 +1,12 @@
 FROM ubuntu:24.04
 
 RUN apt-get update && apt-get install -y --no-install-recommends \
+    ca-certificates \
     build-essential cmake git curl zip unzip tar pkg-config \
     libssl-dev libsqlite3-dev uuid-dev zlib1g-dev \
     libjsoncpp-dev libpq-dev libbrotli-dev libyaml-cpp-dev \
+    && update-ca-certificates \
     && rm -rf /var/lib/apt/lists/*
-
 WORKDIR /app
 
 COPY . .
